@@ -76,7 +76,7 @@ std::vector<geometry::pnt3d> readCsv(const std::string& filepath){
 }
 
 // workers
-void runGen(const cmdline::opts& opts, classifier::pntClassifier& classifier, const geometry::aabb& bounds){
+void runGen(const cmdline::opts& opts, classifier::pntClassifier& classifier, const geometry::aabb& bounds, const std::vector<geometry::triangle>& tris){
     log(LogLevel::INFO, "Mode: Generation (" + std::to_string(opts.n) + " points)");
 
     std::mt19937 gen(static_cast<std::mt19937::result_type>(opts.seed));
@@ -85,13 +85,20 @@ void runGen(const cmdline::opts& opts, classifier::pntClassifier& classifier, co
     std::uniform_real_distribution<> disZ(bounds.min.z, bounds.max.z);
 
     std::vector<vtk::PointStatus> results;
-    results.reserve(opts.n);
+    results.reserve(opts.n + tris.size()*3);
+
+    // calculate unique stl verts
+    auto unqVerts = stl::stlReader::uniqueVerts(tris);
 
     auto t_start = std::chrono::high_resolution_clock::now();
     for(size_t i=0; i<opts.n; ++i) {
         geometry::pnt3d p = {disX(gen), disY(gen), disZ(gen)};
         results.push_back({p, classifier.classify(p)});
     }
+    // also include unique stl verts in this list to show the boundary classification
+    for (size_t i=0; i<unqVerts.size();++i)
+        results.push_back({unqVerts[i], classifier.classify(unqVerts[i])});
+
     auto t_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> t_elapsed = t_end - t_start;
     log(LogLevel::INFO, "Queried " + std::to_string(opts.n) + " points in " + std::to_string(t_elapsed.count()) + " seconds.");
@@ -221,7 +228,7 @@ int main(int argc, char* argv[]){
     // results for points
     std::map<cmdline::Mode, std::function<void()>> workflows;
 
-    workflows[cmdline::Mode::Gen]      = [&]() { runGen(opts, clsfr, root_bounds); };
+    workflows[cmdline::Mode::Gen]      = [&]() { runGen(opts, clsfr, root_bounds, tris); };
     workflows[cmdline::Mode::Classify] = [&]() { runClassify(opts, clsfr); };
     workflows[cmdline::Mode::Mesh]     = [&]() { runMesh(opts, tris, clsfr, root, root_bounds); };
 

@@ -100,6 +100,27 @@ namespace stl
             log(LogLevel::INFO, "Mesh Validation Passed: Watertight and Manifold.");
             return true;
         };
+
+        static std::vector<geometry::pnt3d> uniqueVerts(const std::vector<triangle>& mesh){
+            std::map<geometry::pnt3d, int, pntCompare> uverts;
+            std::vector<geometry::pnt3d> unqVerts;
+            unqVerts.reserve(mesh.size());
+            int next_id = 0;
+
+            for (const auto& tri : mesh){
+
+                for (size_t i=0; i<3; ++i){
+                    auto it = uverts.find(tri.verts[i]);
+                    if (it == uverts.end()){
+                        uverts[tri.verts[i]] = next_id;
+                        unqVerts.push_back(tri.verts[i]);
+                        next_id++;
+                    }
+                }
+            }
+
+            return unqVerts;
+        }
     private:
         
         // rough check to see the type of file
