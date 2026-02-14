@@ -1,0 +1,42 @@
+# Build directories and CMake artifacts
+/build/
+/cmake-build-*/
+/CMakeFiles/
+/CMakeCache.txt
+/CTestTestfile.cmake
+/Makefile
+/cmake_install.cmake
+/compile_commands.json
+
+# Compiled objects/binaries
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Test/build logs
+*.log
+
+# Generated outputs and scaling script
+*.csv
+*.vtk
+data/*.png
+data/*.py
+# ignore the large stl
+data/V4D_Cold-Plate_1_fine_2.stl
+data/V4D_Cold-Plate_1_fine_3.stl
+data/david_bust.stl
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Editor/OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
