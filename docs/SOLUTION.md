@@ -165,15 +165,15 @@ For proving the complexity analysis, 4 different geometries and 7 different quer
 
 | Triangle Count | STL | Octree |
 |---|---|---|
-| 396 | ![STL only, 396 triangles](./396_stl.png) | ![Octree, 396 triangles](./396_octree.png) |
-| 5,810 | ![STL only, 5,810 triangles](./5810_stl.png) | ![Octree, 5,810 triangles](./5810_octree.png) |
-| 509,998 | ![STL only, 509,998 triangles](./509998_stl.png) | ![Octree, 509,998 triangles](./509998_octree.png) |
-| 1,900,352 | ![STL only, 1,900,352 triangles](./1900352_stl.png) | ![Octree, 1,900,352 triangles](./1900352_octree.png) |
+| 396 | ![STL only, 396 triangles](./figs/396_stl.png) | ![Octree, 396 triangles](./figs/396_octree.png) |
+| 5,810 | ![STL only, 5,810 triangles](./figs/5810_stl.png) | ![Octree, 5,810 triangles](./figs/5810_octree.png) |
+| 509,998 | ![STL only, 509,998 triangles](./figs/509998_stl.png) | ![Octree, 509,998 triangles](./figs/509998_octree.png) |
+| 1,900,352 | ![STL only, 1,900,352 triangles](./figs/1900352_stl.png) | ![Octree, 1,900,352 triangles](./figs/1900352_octree.png) |
 
 ### 3.1 Query-Count Scaling (Plot 1, Plot 2)
 
-![Total query time vs N](./plot_1_total_time.png)
-![Average time per point vs N](./plot_2_avg_time.png)
+![Total query time vs N](./figs/plot_1_total_time.png)
+![Average time per point vs N](./figs/plot_2_avg_time.png)
 
 The log-log slopes of total query time vs \(N\) are:
 - 396 tris: 0.9797
@@ -193,7 +193,7 @@ So query cost increases with geometry complexity, but sublinearly relative to ra
 
 ### 3.2 Setup-Time Scaling (Plot 3)
 
-![Setup times vs triangle count](./plot_3_setup_times.png)
+![Setup times vs triangle count](./figs/plot_3_setup_times.png)
 
 Preprocessing grows approximately linearly with triangle count:
 - STL read exponent (5,810 -> 1,900,352 tris): \(\approx 0.95\)
@@ -217,9 +217,9 @@ A finer version of the originially shared stl with 509,998 triangles was used he
 
 | Item | Representation |
 |---|---|
-| STL visualization | ![Cold plate STL](./coldplate_stl.png) |
-| Octree visualization | ![Cold plate Octree](./coldplate_octree.png) |
-| Points visualization | ![Cold plate classified points](./coldplate_points.png) |
+| STL visualization | ![Cold plate STL](./figs/coldplate_stl.png) |
+| Octree visualization | ![Cold plate Octree](./figs/coldplate_octree.png) |
+| Points visualization | ![Cold plate classified points](./figs/coldplate_points.png) |
 
 ### 4.2 David Bust Geometry Results
 
@@ -227,9 +227,9 @@ A refrence stl of Michelangelo's David's bust with 1,083,370 triangles was used 
 
 | Item | Representation |
 |---|---|
-| STL visualization | ![David's bust STL](./david_bust_stl.png) |
-| Octree visualization | ![David's bust Octree](./david_bust_octree.png) |
-| Points visualization | ![David's bust classified points](./david_bust_points.png) |
+| STL visualization | ![David's bust STL](./figs/david_bust_stl.png) |
+| Octree visualization | ![David's bust Octree](./figs/david_bust_octree.png) |
+| Points visualization | ![David's bust classified points](./figs/david_bust_points.png) |
 
 ### 4.3 Stanford Dragon Geometry Results
 
@@ -237,9 +237,9 @@ A refrence stl of the Stanford Dragon with 318,460 triangles was used here. The 
 
 | Item | Representation |
 |---|---|
-| STL visualization | ![Stanford Dragon STL](./stanford_dragon_stl.png) |
-| Octree visualization | ![Stanford Dragon Octree](./stanford_dragon_octree.png) |
-| Points visualization | ![Stanford Dragon classified points](./stanford_dragon_points.png) |
+| STL visualization | ![Stanford Dragon STL](./figs/stanford_dragon_stl.png) |
+| Octree visualization | ![Stanford Dragon Octree](./figs/stanford_dragon_octree.png) |
+| Points visualization | ![Stanford Dragon classified points](./figs/stanford_dragon_points.png) |
 
 ## 5. Mesher Results
 
@@ -250,9 +250,9 @@ The following figures show representative generated meshes for the three case-st
 
 | Geometry | Generated Mesh (View 1)| Generated Mesh (View 2)|
 |---|---|---|
-| Cold plate (509,998 tris) | ![Cold plate generated mesh1](./coldplate_mesh_1.png) | ![Cold plate generated mesh2](./coldplate_mesh_2.png) |
-| David bust (1,083,370 tris) | ![David bust generated mesh1](./david_bust_mesh_1.png) | ![David bust generated mesh2](./david_bust_mesh_2.png) |
-| Stanford Dragon (318,460 tris) | ![Stanford Dragon generated mesh1](./stanford_dragon_mesh_1.png) | ![Stanford Dragon generated mesh2](./stanford_dragon_mesh_2.png) |
+| Cold plate (509,998 tris) | ![Cold plate generated mesh1](./figs/coldplate_mesh_1.png) | ![Cold plate generated mesh2](./figs/coldplate_mesh_2.png) |
+| David bust (1,083,370 tris) | ![David bust generated mesh1](./figs/david_bust_mesh_1.png) | ![David bust generated mesh2](./figs/david_bust_mesh_2.png) |
+| Stanford Dragon (318,460 tris) | ![Stanford Dragon generated mesh1](./figs/stanford_dragon_mesh_1.png) | ![Stanford Dragon generated mesh2](./figs/stanford_dragon_mesh_2.png) |
 
 ## 6. Testing and Validation
 
