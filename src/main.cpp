@@ -101,7 +101,7 @@ void runGen(const cmdline::opts& opts, classifier::pntClassifier& classifier, co
 
     auto t_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> t_elapsed = t_end - t_start;
-    log(LogLevel::INFO, "Queried " + std::to_string(opts.n) + " points in " + std::to_string(t_elapsed.count()) + " seconds.");
+    log(LogLevel::INFO, "Queried " + std::to_string(results.size()) + " points in " + std::to_string(t_elapsed.count()) + " seconds.");
     if (opts.n > 0) {
         double avg_micro = ((t_elapsed.count()) / double(opts.n));
         log(LogLevel::INFO, "Average time per point: " + std::to_string(avg_micro) + " seconds.");

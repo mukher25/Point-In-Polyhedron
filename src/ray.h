@@ -36,6 +36,7 @@ namespace ray
             // parallel?
             if (dot > -constants::EPSILON && dot < constants::EPSILON) return -1.;
 
+            // cramers rule
             double f = 1./dot;
             pnt3d s = origin - tri.verts[0];
             double u = f * (s & crs);
