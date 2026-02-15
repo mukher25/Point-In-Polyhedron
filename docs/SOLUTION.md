@@ -161,7 +161,7 @@ where setup is:
 T_{\text{setup}}(T)=T_{\text{STL}}(T)+T_{\text{octree}}(T)+T_{\text{voxel-fill}}(T)
 \]
 
-For proving the complexity analysis, 4 different geometries and 7 different query point sets are considered. To keep things uniform, the same cold plate geometry is utilized, however it is isotropically remeshed with different levels of refinement to derive additional geometries with 5,810; 509,998; and 1,900,352 triangles. The number of query points tested were 10 through $10^7$ on a log scale. The input geometry with their triangulation and the preprocessed octree voxels are shown below.
+For proving the complexity analysis, 4 different geometries and 7 different query point sets are considered. To keep things uniform, the same cold plate geometry is utilized, however it is isotropically remeshed with different levels of refinement to derive additional geometries with 5,810; 509,998; and 1,900,352 triangles. These tests were performed on a 12th gen intel i7 clocked at 2.1GHz. The number of query points tested were 10 through $10^7$ on a log scale. The input geometry with their triangulation and the preprocessed octree voxels are shown below.
 
 | Triangle Count | STL | Octree |
 |---|---|---|
