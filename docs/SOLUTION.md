@@ -161,7 +161,7 @@ $$
 T_{\text{setup}}(T)=T_{\text{STL}}(T)+T_{\text{octree}}(T)+T_{\text{voxel-fill}}(T)
 $$
 
-For proving the complexity analysis, 4 different geometries and 7 different query point sets are considered. To keep things uniform, the same cold plate geometry is utilized, however it is isotropically remeshed with different levels of refinement to derive additional geometries with 5,810; 509,998; and 1,900,352 triangles. These tests were performed on a 12th gen intel i7 clocked at 2.1GHz. The number of query points tested were 10 through $10^7$ on a log scale. The input geometry with their triangulation and the preprocessed octree voxels are shown below.
+For proving the complexity analysis, 4 different geometries and 7 different query point sets are considered. To keep things uniform, the same cold plate geometry is utilized, however it is isotropically remeshed with different levels of refinement to derive additional geometries with 5,810; 509,998; and 1,900,352 triangles. These tests were performed on a 10th gen intel i5-10310U. The number of query points tested were 10 through $10^7$ on a log scale. The input geometry with their triangulation and the preprocessed octree voxels are shown below.
 
 | Triangle Count | STL | Octree |
 |---|---|---|
@@ -176,18 +176,18 @@ For proving the complexity analysis, 4 different geometries and 7 different quer
 ![Average time per point vs N](./figs/plot_2_avg_time.png)
 
 The log-log slopes of total query time vs \(N\) are:
-- 396 tris: 0.9797
-- 5,810 tris: 0.9913
-- 509,998 tris: 0.9908
-- 1,900,352 tris: 0.9867
+- 396 tris: 0.9463
+- 5,810 tris: 0.8639
+- 509,998 tris: 0.8958
+- 1,900,352 tris: 0.8989
 
 These are close to 1, indicating near-\(O(Q)\) scaling for fixed geometry.
 
-Average per-point time at \(N=10^7\):
-- 396 tris: \(2.29\times10^{-6}\) s
-- 5,810 tris: \(4.36\times10^{-6}\) s
-- 509,998 tris: \(1.01\times10^{-5}\) s
-- 1,900,352 tris: \(1.16\times10^{-5}\) s
+Average per-point time at $N=10^7$:
+- 396 tris: $3.4769478\times10^{-6}$ s
+- 5,810 tris: $6.9392848\times10^{-6}$ s
+- 509,998 tris: $1.38526631\times10^{-5}$ s
+- 1,900,352 tris: $1.59299065\times10^{-5}$ s
 
 So query cost increases with geometry complexity, but sublinearly relative to raw triangle growth due to octree pruning.
 
@@ -195,10 +195,10 @@ So query cost increases with geometry complexity, but sublinearly relative to ra
 
 ![Setup times vs triangle count](./figs/plot_3_setup_times.png)
 
-Preprocessing grows approximately linearly with triangle count:
-- STL read exponent (5,810 -> 1,900,352 tris): \(\approx 0.95\)
-- Octree build exponent (5,810 -> 1,900,352 tris): \(\approx 1.01\)
-- Classifier init / voxel-fill exponent (5,810 -> 1,900,352 tris): \(\approx 1.01\)
+Using the 5,810 \(\rightarrow\) 1,900,352 triangle range, preprocessing exponents are:
+- STL read exponent: \(\approx 0.8481\)
+- Octree build exponent: \(\approx 0.9729\)
+- Classifier init / voxel-fill exponent: \(\approx 0.7267\)
 
 This matches expected behavior for preprocessing-heavy stages.
 

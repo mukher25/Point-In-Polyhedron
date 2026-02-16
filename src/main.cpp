@@ -8,6 +8,8 @@
 #include <functional>
 #include <map>
 #include <chrono>
+#include <sched.h>
+#include <unistd.h>
 
 #include "stl_parser.h"
 #include "geometry.h"
@@ -157,6 +159,15 @@ void runMesh(const cmdline::opts& opts, const std::vector<geometry::triangle>& t
 }
 
 int main(int argc, char* argv[]){
+
+    // pin to cpu 0 - only on linux - just to boost to turbo on this cpu
+    // cpu_set_t set;
+    // CPU_ZERO(&set);
+    // CPU_SET(0, &set);
+    // if (sched_setaffinity(0, sizeof(set), &set)!=0){
+    //     perror("sched_setaffinity");
+    //     return 1;
+    // }
 
     // get command line arguments
     auto opt_val = cmdline::parse(argc, argv);
