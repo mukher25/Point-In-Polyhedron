@@ -22,29 +22,29 @@ For each candidate triangle, intersection is computed with the Moller-Trumbore m
 The method solves a 3-variable linear system in terms of triangle barycentric coordinates and ray distance.
 
 A point on the ray is:
-\[
+$$
 \mathbf{P} = \mathbf{O} + t\mathbf{D}
-\]
+$$
 
 A point on the triangle is:
-\[
+$$
 \mathbf{P} = \mathbf{V}_0 + u\mathbf{E}_1 + v\mathbf{E}_2
-\]
+$$
 where:
-\[
+$$
 \mathbf{E}_1 = \mathbf{V}_1 - \mathbf{V}_0,\quad
 \mathbf{E}_2 = \mathbf{V}_2 - \mathbf{V}_0
-\]
+$$
 
 Equating both forms:
-\[
+$$
 \mathbf{O} + t\mathbf{D} = \mathbf{V}_0 + u\mathbf{E}_1 + v\mathbf{E}_2
-\]
-\[
+$$
+$$
 \mathbf{S} := \mathbf{O} - \mathbf{V}_0 = u\mathbf{E}_1 + v\mathbf{E}_2 - t\mathbf{D}
-\]
+$$
 
-So the unknowns \((u,v,t)\) come from:
+So the unknowns $$(u,v,t)$$ come from:
 $$
 \left[\mathbf{E}_1\ \mathbf{E}_2\ -\mathbf{D}\right]
 \begin{bmatrix}
@@ -106,25 +106,25 @@ If a query point falls in a leaf already labeled `INTERNAL` or `EXTERNAL`, class
 
 Ray traversal through the octree uses a slab test[^4] implemented in `Ray::intersect(const aabb&)` (`src/ray.h`).  
 The same ray parameterization is used:
-\[
+$$
 \mathbf{r}(t)=\mathbf{O}+t\mathbf{D}
-\]
+$$
 
 For each axis, an entry and exit parameter are computed. Along the x-axis:
-\[
+$$
 t_{x1}=\frac{x_{min}-O_x}{D_x},\quad
 t_{x2}=\frac{x_{max}-O_x}{D_x}
-\]
+$$
 and similarly for y and z.  
 In code, these divisions are implemented as multiplication by precomputed inverse direction (`inv_dir`) from `Ray::Ray(...)`, with near-zero direction components guarded by `constants::BIG`.
 
 The per-axis intervals are merged into one global overlap interval:
-\[
+$$
 t_{min}=\max\left(\min(t_{x1},t_{x2}),\min(t_{y1},t_{y2}),\min(t_{z1},t_{z2})\right)
-\]
-\[
+$$
+$$
 t_{max}=\min\left(\max(t_{x1},t_{x2}),\max(t_{y1},t_{y2}),\max(t_{z1},t_{z2})\right)
-\]
+$$
 
 Geometrically, this means the ray intersects all three axis slabs simultaneously only when the global interval is valid.  
 The final acceptance check in `Ray::intersect(const aabb&)` is:
@@ -152,14 +152,14 @@ Only this reduced candidate set is passed to Moller-Trumbore intersection, which
 ## 3. Complexity Analysis
 For a mesh with \(T\) triangles and \(Q\) query points, runtime can be expressed as:
 
-\[
+$$
 T_{\text{total}}(T,Q)=T_{\text{setup}}(T)+Q\cdot t_{\text{query}}(T)
-\]
+$$
 
 where setup is:
-\[
+$$
 T_{\text{setup}}(T)=T_{\text{STL}}(T)+T_{\text{octree}}(T)+T_{\text{voxel-fill}}(T)
-\]
+$$
 
 For proving the complexity analysis, 4 different geometries and 7 different query point sets are considered. To keep things uniform, the same cold plate geometry is utilized, however it is isotropically remeshed with different levels of refinement to derive additional geometries with 5,810; 509,998; and 1,900,352 triangles. These tests were performed on a 12th gen intel i7 clocked at 2.1GHz. The number of query points tested were 10 through $10^7$ on a log scale. The input geometry with their triangulation and the preprocessed octree voxels are shown below.
 
